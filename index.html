@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/zygai.ico" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#ee9f14" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ZygAI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      (function() {
+        const theme = localStorage.getItem('zygai:theme');
+        if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+    </script>
+    <meta http-equiv="Content-Security-Policy"
+ content="default-src 'self'; connect-src 'self' https: http: ws: wss: data: blob: http://100.76.3.3:* https://cdn.jsdelivr.net; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; script-src-elem 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; worker-src 'self' blob: https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https: blob: cognivision:; font-src 'self' data: https:;" />
+    <script>
+      // Global fetch interceptor: Pings the server for up to 10 seconds during a backend restart
+      const originalFetch = window.fetch;
+      window.fetch = async function(...args) {
+        const maxRetries = 10;
+        const delayMs = 1000;
+        let attempts = 0;
+
+        while (attempts < maxRetries) {
+          try {
+            const response = await originalFetch.apply(this, args);
+            // 502 Bad Gateway or 503 Service Unavailable indicates the proxy is up but Node backend is restarting
+            if (response.status === 502 || response.status === 503) {
+              attempts++;
+              if (attempts >= maxRetries) return response;
+              await new Promise(r => setTimeout(r, delayMs));
+              continue;
+            }
+            return response;
+          } catch (error) {
+            // Catch network connection refused errors if the proxy is bypassed
+            attempts++;
+            if (attempts >= maxRetries) throw error;
+            await new Promise(r => setTimeout(r, delayMs));
+          }
+        }
+      };
+    </script>
+  </head>
+  <body class="bg-ink-50 text-ink-900 dark:bg-ink-900 dark:text-ink-50">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
