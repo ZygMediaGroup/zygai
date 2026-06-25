@@ -1,0 +1,23 @@
+{
+  "name": "ZygAI",
+  "short_name": "ZygAI",
+  "description": "Multi-model AI chat and image studio.",
+  "theme_color": "#ee9f14",
+  "background_color": "#f6f5f4",
+  "display": "standalone",
+  "start_url": "/",
+  "lang": "en",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/zygai-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/zygai-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
