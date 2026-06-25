@@ -1,0 +1,1659 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Exact syntax colors matching your screenshot */
+.token.doctype {
+  color: #60a5fa;
+}
+
+/* Tailwind color class mappings to theme variables for consistent theming */
+.bg-ink-50 { background-color: var(--ink-50) !important; }
+.bg-ink-100 { background-color: var(--ink-100) !important; }
+.bg-ink-200 { background-color: var(--ink-200) !important; }
+.bg-ink-300 { background-color: var(--ink-300) !important; }
+.bg-ink-400 { background-color: var(--ink-400) !important; }
+.bg-ink-500 { background-color: var(--ink-500) !important; }
+.bg-ink-600 { background-color: var(--ink-600) !important; }
+.bg-ink-700 { background-color: var(--ink-700) !important; }
+.bg-ink-800 { background-color: var(--ink-800) !important; }
+.bg-ink-900 { background-color: var(--ink-900) !important; }
+.bg-ink-950 { background-color: var(--ink-950) !important; }
+
+.text-ink-50 { color: var(--ink-50) !important; }
+.text-ink-100 { color: var(--ink-100) !important; }
+.text-ink-200 { color: var(--ink-200) !important; }
+.text-ink-300 { color: var(--ink-300) !important; }
+.text-ink-400 { color: var(--ink-400) !important; }
+.text-ink-500 { color: var(--ink-500) !important; }
+.text-ink-600 { color: var(--ink-600) !important; }
+.text-ink-700 { color: var(--ink-700) !important; }
+.text-ink-800 { color: var(--ink-800) !important; }
+.text-ink-900 { color: var(--ink-900) !important; }
+
+.border-ink-50 { border-color: var(--ink-50) !important; }
+.border-ink-100 { border-color: var(--ink-100) !important; }
+.border-ink-200 { border-color: var(--ink-200) !important; }
+.border-ink-300 { border-color: var(--ink-300) !important; }
+.border-ink-400 { border-color: var(--ink-400) !important; }
+.border-ink-500 { border-color: var(--ink-500) !important; }
+.border-ink-600 { border-color: var(--ink-600) !important; }
+.border-ink-700 { border-color: var(--ink-700) !important; }
+.border-ink-800 { border-color: var(--ink-800) !important; }
+.border-ink-900 { border-color: var(--ink-900) !important; }
+
+/* Map white and translucent white utilities to theme background in dark mode only (leave light mode untouched) */
+html.dark .bg-white, html.dark [class*="bg-white/"] { background-color: var(--card-bg) !important; }
+html.dark .text-white { color: var(--ink-50) !important; }
+html.dark .border-white, html.dark [class*="border-white/"] { border-color: var(--border) !important; }
+
+/* Map semi-transparent ink backgrounds like bg-ink-900/70 */
+html.dark [class*="bg-ink-900/"], html.dark [class*="bg-ink-950/"], html.oled [class*="bg-ink-900/"], html.oled [class*="bg-ink-950/"] {
+  /* Preserve alpha for translucent ink backgrounds in dark/oled modes.
+     Use dedicated RGB variables so classes like `bg-ink-900/60` remain semi-transparent. */
+  background-color: rgba(var(--ink-900-rgb, 18,18,18), 0.6) !important;
+}
+
+/* Map Tailwind `dark:bg-black` usages to card background in dark mode (preserve OLED pure-black) */
+html.dark [class~="dark:bg-black"], html.dark [class*="dark:bg-black/"] {
+  background-color: var(--card-bg) !important;
+}
+
+/* Additional mappings for common `dark:` utility tokens present in component classNames */
+html.dark [class*="dark:bg-ink-900"], html.dark [class*="dark:bg-ink-950"] {
+  background-color: var(--ink-900) !important;
+}
+
+html.dark [class*="dark:bg-white"], html.dark [class*="dark:bg-white/"] {
+  background-color: var(--card-bg) !important;
+}
+
+/* Prevent `bg-ink-50` from becoming pure white in dark mode — use a dark surface tone instead */
+html.dark .bg-ink-50,
+html.dark [class*="bg-ink-50/"] {
+  background-color: var(--ink-800) !important;
+}
+
+html.dark .bg-ink-100,
+html.dark [class*="bg-ink-100/"] {
+  background-color: var(--ink-800) !important;
+}
+
+/* Map dark: border utilities to theme border color for consistent contrast */
+html.dark [class*="dark:border-ink-"], html.dark [class*="dark:border-"] {
+  border-color: var(--border) !important;
+}
+
+/* Map dark:text-* tokens to ink variables so text color utilities work when prefixed with `dark:` */
+html.dark [class*="dark:text-ink-"], html.dark [class*="dark:text-"] {
+  color: inherit !important;
+}
+
+/* Ensure some color utility overrides only apply in dark/OLED modes so light mode remains intact */
+html.dark .text-black, html.dark .text-gray-900, html.dark .text-gray-800, html.dark .text-gray-700,
+html.oled .text-black, html.oled .text-gray-900, html.oled .text-gray-800, html.oled .text-gray-700 {
+  color: var(--ink-900) !important;
+}
+html.dark .text-gray-500, html.dark .text-gray-600, html.dark .text-gray-400,
+html.oled .text-gray-500, html.oled .text-gray-600, html.oled .text-gray-400 {
+  color: var(--text-faint) !important;
+}
+
+/* Accent/ring mappings (safe globally because variables change per mode), but keep as-is for dark/oled fallback */
+[class*="saffron-"], .ring-saffron-400 { color: var(--saffron-500) !important; }
+[class*="moss-"], .text-moss-500 { color: var(--moss-500) !important; }
+
+/* OLED special forcing for elements that include white backgrounds */
+html.oled .bg-white, html.oled [class*="bg-white/"] { background-color: #000000 !important; }
+
+
+.token.tag {
+  color: #ef4444;
+}
+
+.token.attr-name {
+  color: #eab308;
+}
+
+.token.attr-value {
+  color: #22c55e;
+}
+
+.token.tag > .token.punctuation {
+  color: #9ca3af;
+}
+
+.token.html-tag {
+  color: #ef4444;
+}
+
+.token.lang-html .token.punctuation {
+  color: #9ca3af;
+}
+
+/* Header button text matching */
+.code-block-header button {
+  color: #d1d5db;
+}
+
+.code-block-header button:hover {
+  color: #ffffff;
+}
+
+pre code .token {
+  white-space: pre-wrap !important;
+  word-break: break-all !important;
+}
+
+pre code span {
+  white-space: pre-wrap !important;
+  word-break: break-all !important;
+}
+
+/* Streaming cursor */
+.streaming-cursor {
+  animation: blink 1s infinite;
+  color: #6b7280;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+:root {
+  color-scheme: light;
+  --transition-fast: 100ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --ink-50: #f4f4f4;
+  --ink-100: #e0e0e0;
+  --ink-200: #b8b8b8;
+  --ink-300: #909090;
+  --ink-400: #787878;
+  --ink-500: #606060;
+  --ink-600: #484848;
+  --ink-700: #303030;
+  --ink-800: #202020;
+  --ink-900: #121212;
+  --ink-950: #121212;
+  --ink-900-rgb: 18,18,18;
+  --ink-950-rgb: 18,18,18;
+  --saffron-50: #fff7e6;
+  --saffron-300: #f4ba4c;
+  --saffron-400: #ee9f14;
+  --saffron-500: #d68400;
+  --moss-500: #4d7f63;
+  --border: var(--ink-200);
+  --card-bg: #ffffff;
+  --bg: #fdfbf9;
+  --text-muted: var(--ink-500);
+  --text-faint: var(--ink-400);
+}
+
+html.dark {
+  color-scheme: dark;
+  --bg: #121212;
+  --border: #1f1f1f;
+  --ink-50: #ffffff;
+  --ink-100: #e6e6e6;
+  --ink-200: #cfcfcf;
+  --ink-300: #9e9e9e;
+  --ink-400: #757575;
+  --ink-500: #616161;
+  --ink-600: #424242;
+  --ink-700: #303030;
+  --ink-800: #202020;
+  --ink-900: #121212;
+  --ink-950: #0b0b0b;
+  --ink-900-rgb: 18,18,18;
+  --ink-950-rgb: 11,11,11;
+  --saffron-50: #111111;
+  --saffron-300: #ffcc80;
+  --saffron-400: #ffb74d;
+  --saffron-500: #ffa726;
+  --moss-500: #81c784;
+  --text-muted: #e0e0e0;
+  --text-faint: #9e9e9e;
+  --card-bg: #0a0a0a;
+}
+
+html.oled {
+  color-scheme: dark;
+  --bg: #000000;
+  --border: #1b1b1b;
+  --ink-50: #ffffff;
+  --ink-100: #e6e6e6;
+  --ink-200: #cfcfcf;
+  --ink-300: #9e9e9e;
+  --ink-400: #757575;
+  --ink-500: #616161;
+  --ink-600: #424242;
+  --ink-700: #2b2b2b;
+  --ink-800: #141414;
+  --ink-900: #000000;
+  --ink-950: #000000;
+  --ink-900-rgb: 0,0,0;
+  --ink-950-rgb: 0,0,0;
+  --saffron-50: #000000;
+  --saffron-300: #ffcc80;
+  --saffron-400: #ffa94d;
+  --saffron-500: #ff922b;
+  --moss-500: #81c784;
+  --text-muted: #e6e6e6;
+  --text-faint: #9e9e9e;
+  --card-bg: #000000;
+}
+
+html.dark body {
+  background-color: #121212 !important;
+  color: #e0e0e0;
+}
+
+html.dark .header-title,
+html.dark .bubble-user,
+html.dark .bubble-assistant,
+html.dark .card-title,
+html.dark .thinking-model-name,
+html.dark .thinking-toggle,
+html.dark .thinking-content,
+html.dark .chat-markdown li,
+html.dark .chat-markdown th,
+html.dark .chat-markdown td,
+html.dark .chat-markdown strong,
+html.dark .blog-content li,
+html.dark .blog-content th,
+html.dark .blog-content td,
+html.dark .blog-content strong {
+  color: var(--ink-50);
+}
+
+html.dark .header-actions .icon-btn,
+html.dark .action-btn,
+html.dark .tool-pill,
+html.dark .card-sub,
+html.dark .chat-markdown li::marker,
+html.dark .chat-markdown em,
+html.dark .chat-markdown td,
+html.dark .blog-content li::marker,
+html.dark .blog-content em,
+html.dark .blog-content td {
+  color: var(--ink-200);
+}
+
+html.dark .card {
+  background: var(--card-bg);
+  border-color: var(--border);
+}
+
+html.dark .card:hover {
+  background: var(--ink-800);
+  border-color: var(--saffron-400);
+}
+
+html.dark .send-btn {
+  background: var(--ink-50);
+}
+
+html.dark .send-btn:hover {
+  background: var(--ink-200);
+}
+
+/* Force pure black backgrounds only for OLED mode */
+html.oled body,
+html.oled [class~="bg-ink-900"],
+html.oled [class~="bg-ink-950"] {
+  background-color: #000000 !important;
+}
+
+html.dark [class~="bg-white/5"],
+html.dark [class~="bg-white/10"] {
+  background-color: #0d0d0d !important;
+}
+
+/* Remove global transition-all to avoid layout/thrashing on every element */
+
+body {
+  font-family: "Work Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition-property: color, background-color, border-color;
+  transition-duration: 300ms;
+  background: radial-gradient(circle at top right, rgba(238, 159, 20, 0.12), transparent 45%), radial-gradient(circle at bottom left, rgba(77, 127, 99, 0.08), transparent 60%), var(--bg);
+  color: var(--ink-900);
+}
+
+html.oled body {
+  background: #000000 !important;
+}
+
+html.dark .chat-gradient {
+  background: var(--bg);
+}
+
+html.oled .chat-gradient {
+  background: #000000;
+}
+
+html.oled [class~="dark:bg-ink-900"],
+html.oled [class~="dark:bg-ink-950"],
+html.oled [class*="dark:bg-ink-900/"],
+html.oled [class*="dark:bg-ink-950/"] {
+  background-color: #000000 !important;
+}
+
+html.oled [class~="dark:bg-white/5"],
+html.oled [class~="dark:bg-white/10"] {
+  background-color: #000000 !important;
+}
+
+/* Standard dark and OLED overrides are now driven by Tailwind palette + theme vars */
+
+/* Focus states for better accessibility */
+input:focus,
+textarea:focus,
+button:focus,
+select:focus {
+  outline: none;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+button:focus-visible,
+select:focus-visible {
+  outline: 2px solid #fbbf24;
+  outline-offset: 2px;
+}
+
+/* Better form styling */
+input,
+textarea,
+select {
+  transition-property: color, background-color, border-color; transition-duration: 200ms;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--ink-400);
+}
+
+.chat-gradient {
+  background: radial-gradient(circle at top right, rgba(238, 159, 20, 0.12), transparent 50%), radial-gradient(circle at bottom left, rgba(77, 127, 99, 0.08), transparent 50%), linear-gradient(135deg, rgba(238, 159, 20, 0.06), transparent 45%);
+  transition: all 300ms;
+}
+
+html.dark .chat-gradient {
+  background: var(--bg);
+}
+
+html.oled body {
+  background: #000000 !important;
+  color: #ffffff;
+}
+
+html.oled .header-title,
+html.oled .bubble-user,
+html.oled .bubble-assistant,
+html.oled .card-title,
+html.oled .thinking-model-name,
+html.oled .thinking-toggle,
+html.oled .thinking-content,
+html.oled .chat-markdown li,
+html.oled .chat-markdown th,
+html.oled .chat-markdown td,
+html.oled .chat-markdown strong,
+html.oled .blog-content li,
+html.oled .blog-content th,
+html.oled .blog-content td,
+html.oled .blog-content strong {
+  color: #ffffff !important;
+}
+
+html.oled .header-actions .icon-btn,
+html.oled .action-btn,
+html.oled .tool-pill,
+html.oled .card-sub,
+html.oled .chat-markdown li::marker,
+html.oled .chat-markdown em,
+html.oled .chat-markdown td,
+html.oled .blog-content li::marker,
+html.oled .blog-content em,
+html.oled .blog-content td {
+  color: #e0e0e0 !important;
+}
+
+html.oled .card {
+  background: #000000 !important;
+  border-color: #2a2a2a !important;
+}
+
+html.oled .card:hover {
+  background: #000000 !important;
+  border-color: #ffa94d !important;
+}
+
+html.oled .send-btn {
+  background: #ffa94d !important;
+}
+
+html.oled .send-btn:hover {
+  background: #ff922b !important;
+}
+
+html.oled .chat-gradient {
+  background: #000000;
+}
+
+html.oled body,
+html.oled .text-ink-900,
+html.oled .text-ink-800,
+html.oled .text-ink-700,
+html.oled .text-ink-600,
+html.oled .text-ink-500,
+html.oled .text-ink-400,
+html.oled .text-ink-300,
+html.oled .text-ink-200 {
+  color: #ffffff !important;
+}
+
+html.oled .code-block-header button,
+html.oled .chat-markdown a,
+html.oled .chat-markdown li::marker,
+html.oled .chat-markdown strong,
+html.oled .chat-markdown th,
+html.oled .assistant-content th,
+html.oled .blog-content th {
+  color: #ffffff !important;
+}
+
+/* Table backgrounds */
+html.oled .chat-markdown th,
+html.oled .assistant-content th,
+html.oled .blog-content th {
+  background-color: #111111 !important;
+}
+
+html.oled .chat-markdown td,
+html.oled .assistant-content td,
+html.oled .blog-content td {
+  background-color: #000000 !important;
+  color: #e0e0e0 !important;
+}
+
+html.oled .chat-markdown table,
+html.oled .assistant-content table,
+html.oled .blog-content table {
+  border-color: #2a2a2a !important;
+}
+
+html.oled .chat-markdown th,
+html.oled .chat-markdown td,
+html.oled .assistant-content th,
+html.oled .assistant-content td,
+html.oled .blog-content th,
+html.oled .blog-content td {
+  border-color: #2a2a2a !important;
+}
+
+html.oled .bg-white,
+html.oled [class~="bg-white/5"],
+html.oled [class~="bg-white/10"],
+html.oled [class~="bg-white/20"],
+html.oled [class~="bg-white/50"],
+html.oled [class~="bg-white/80"],
+html.oled .bg-ink-50,
+html.oled .bg-ink-100,
+html.oled .bg-ink-200,
+html.oled .bg-ink-300 {
+  background-color: #000000 !important;
+}
+
+html.oled .border-white,
+html.oled [class~="border-white/5"],
+html.oled [class~="border-white/10"],
+html.oled [class~="border-white/20"],
+html.oled .border-ink-50,
+html.oled .border-ink-100,
+html.oled .border-ink-200,
+html.oled .border-ink-300 {
+  border-color: #2a2a2a !important;
+}
+
+html.oled .shadow-sm,
+html.oled .shadow-md,
+html.oled .shadow-lg,
+html.oled .shadow-xl,
+html.oled .shadow-2xl,
+html.oled .shadow-base,
+html.oled .shadow-glow,
+html.oled [class~="shadow-saffron-200/50"],
+html.oled .shadow-saffron-200,
+html.oled [class~="shadow-saffron-900/30"] {
+  box-shadow: none !important;
+}
+
+html.oled .bg-saffron-50,
+html.oled .bg-saffron-100,
+html.oled .bg-saffron-200,
+html.oled .bg-saffron-300,
+html.oled .bg-saffron-400,
+html.oled .bg-saffron-500,
+html.oled .border-saffron-200,
+html.oled .border-saffron-300,
+html.oled .border-saffron-400 {
+  background-color: #000000 !important;
+  border-color: #2a2a2a !important;
+}
+
+html.oled .bg-amber-50,
+html.oled .bg-amber-100,
+html.oled .bg-amber-200,
+html.oled [class~="bg-amber-900/10"],
+html.oled .text-amber-600,
+html.oled .text-amber-700,
+html.oled .text-amber-800,
+html.oled .text-amber-400 {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+html.oled [class*="saffron-"],
+html.oled [class*="amber-"],
+html.oled [class*="yellow-"] {
+  color: #ffffff !important;
+  background-color: #000000 !important;
+  border-color: #2a2a2a !important;
+  box-shadow: none !important;
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+html.oled [class*="text-saffron"],
+html.oled [class*="text-amber"],
+html.oled [class*="text-yellow"] {
+  color: #ffffff !important;
+}
+
+html.oled [class*="bg-saffron"],
+html.oled [class*="bg-amber"],
+html.oled [class*="bg-yellow"] {
+  background-color: #000000 !important;
+}
+
+html.oled [class*="text-black"],
+html.oled [class*="text-gray-900"],
+html.oled [class*="text-gray-800"],
+html.oled [class*="text-gray-700"],
+html.oled [class*="text-gray-600"],
+html.oled [class*="text-gray-500"],
+html.oled [class*="text-gray-400"] {
+  color: #ffffff !important;
+}
+
+html.oled [class*="border-saffron"],
+html.oled [class*="border-amber"],
+html.oled [class*="border-yellow"] {
+  border-color: #2a2a2a !important;
+}
+
+html.oled [class*="ring-saffron"],
+html.oled [class*="ring-amber"],
+html.oled [class*="ring-yellow"] {
+  --tw-ring-color: #ffffff !important;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom scrollbar styling for better visibility */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 9999px; background-color: var(--ink-300);
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background-color: var(--ink-700);
+}
+
+.message-enter {
+  animation: floatIn 0.2s ease-out;
+}
+
+.blog-content {
+  color: var(--ink-900);
+}
+
+.blog-content h1 {
+  font-family: 'Space Grotesk', sans-serif; font-size: 1.875rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 1rem; line-height: 1.25;
+}
+
+.blog-content h1:first-child {
+  margin-top: 0;
+}
+
+.blog-content h2 {
+  font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 600; margin-top: 1.25rem; margin-bottom: 0.75rem; line-height: 1.25;
+}
+
+.blog-content h3 {
+  font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 600; margin-top: 1rem; margin-bottom: 0.5rem; line-height: 1.25;
+}
+
+.blog-content h4,
+.blog-content h5,
+.blog-content h6 {
+  font-family: 'Space Grotesk', sans-serif; font-weight: 600; margin-top: 0.75rem; margin-bottom: 0.5rem;
+}
+
+.blog-content p {
+  margin-top: 0.75rem; margin-bottom: 0; line-height: 1.625;
+}
+
+.blog-content p + p {
+  margin-top: 1rem;
+}
+
+.blog-content ul,
+.blog-content ol {
+  margin-top: 0.75rem; margin-bottom: 0; padding-left: 1.25rem;
+}
+
+.blog-content ul {
+  list-style-type: disc;
+}
+
+.blog-content ol {
+  list-style-type: decimal;
+}
+
+.blog-content li {
+  color: var(--ink-900);
+}
+
+.blog-content li + li {
+  margin-top: 0.5rem;
+}
+
+.blog-content li::marker {
+  color: var(--saffron-500); font-weight: 600;
+}
+
+.blog-content a {
+  color: var(--saffron-500); text-decoration: underline;
+}
+
+.blog-content hr {
+  margin-top: 1.5rem; margin-bottom: 1.5rem; border: 0; border-top: 1px solid var(--ink-200);
+}
+
+.blog-content blockquote {
+  margin-top: 1rem; padding-left: 1rem; border-left: 4px solid var(--saffron-400); color: var(--ink-500);
+  font-style: italic;
+}
+
+.blog-content pre {
+  margin-top: 1rem; padding: 1rem; border-radius: 0.5rem; background-color: var(--card-bg); overflow-x: auto; border: 1px solid var(--border);
+}
+
+.blog-content code {
+  padding: 0.25rem 0.5rem; border-radius: 0.375rem; background-color: var(--ink-100); color: var(--ink-900); font-size: 0.875rem; font-family: monospace;
+}
+
+.blog-content pre code {
+  background: transparent; color: var(--ink-50); padding: 0;
+}
+
+.chat-markdown {
+  display: grid; gap: 0.75rem;
+}
+
+.chat-markdown p {
+  margin: 0; line-height: 1.625;
+}
+
+.chat-markdown ul,
+.chat-markdown ol {
+  margin-top: 0.5rem; margin-bottom: 0; padding-left: 1.25rem;
+}
+
+.chat-markdown ul {
+  list-style-type: disc;
+}
+
+.chat-markdown ol {
+  list-style-type: decimal;
+}
+
+.chat-markdown li {
+  color: var(--ink-700);
+}
+
+.chat-markdown li::marker {
+  color: var(--saffron-500); font-weight: 500;
+}
+
+.chat-markdown blockquote {
+  margin-top: 0.5rem; margin-bottom: 0.5rem; padding: 0.5rem 0.75rem 0.5rem 0.75rem; border-left: 4px solid rgba(238,159,20,0.5); color: var(--ink-500); background-color: rgba(255,247,230,0.3); border-radius: 0 0.375rem 0.375rem 0;
+  font-style: italic;
+}
+
+.chat-markdown a {
+  color: var(--saffron-500); text-decoration: underline;
+}
+
+.chat-markdown table {
+  margin-top: 0.75rem; border-collapse: collapse; font-size: 0.875rem;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.chat-markdown th,
+.chat-markdown td {
+  border: 1px solid var(--ink-200); padding: 0.375rem 0.5rem; text-align: left;
+  min-width: 88px;
+}
+
+.chat-markdown th {
+  background-color: var(--ink-100); font-weight: 600;
+}
+
+.chat-markdown strong {
+  font-weight: 600; color: var(--ink-900);
+}
+
+.chat-markdown em {
+  color: var(--ink-700);
+  font-style: italic;
+}
+
+.chat-markdown pre {
+  background-color: #f3f4f6; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; font-size: 0.875rem; font-family: monospace; line-height: 1.625;
+}
+
+.chat-markdown code {
+  background-color: #f3f4f6; padding: 0.125rem 0.375rem; border-radius: 0.25rem; font-size: 0.875rem; font-family: monospace;
+}
+
+.chat-markdown pre code {
+  background: transparent; padding: 0;
+}
+
+.assistant-content .code-editor-block {
+  margin-top: 1rem; margin-bottom: 1rem; border-radius: 0.75rem; overflow: hidden; border: 1px solid var(--border);
+  background: var(--ink-900);
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+.assistant-content .code-editor-header {
+  display: flex; align-items: center; justify-content: space-between; padding: 0.625rem 1rem; border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--ink-800) 0%, var(--ink-900) 100%);
+}
+
+.assistant-content .code-language-badge {
+  padding: 0.25rem 0.75rem; border-radius: 0.375rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+  background: rgba(255,255,255,0.03);
+  color: var(--saffron-300);
+  letter-spacing: 0.05em;
+}
+
+.assistant-content .code-actions {
+  display: flex; align-items: center; gap: 0.5rem;
+}
+
+.assistant-content .code-action-btn {
+  display: flex; align-items: center; gap: 0.375rem; padding: 0.375rem 0.75rem; border-radius: 0.375rem; font-size: 0.75rem; font-weight: 500; transition: all 200ms;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-faint);
+  border: 1px solid transparent;
+}
+
+.assistant-content .code-action-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.assistant-content .code-action-btn .copied {
+  color: var(--moss-500);
+}
+
+.assistant-content .code-editor-body {
+  display: flex; overflow-x: auto;
+}
+
+.assistant-content .line-numbers {
+  display: flex; flex-direction: column; text-align: right; padding: 1rem 0.75rem; user-select: none; border-right: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.15);
+  min-width: 48px;
+}
+
+.assistant-content .line-number {
+  font-size: 0.75rem; line-height: 1.5rem;
+  color: var(--ink-500);
+}
+
+.assistant-content .code-content {
+  flex: 1; margin: 0; padding: 1rem; overflow-x: auto;
+  background: transparent;
+}
+
+.assistant-content .code-content code {
+  display: block; font-size: 0.875rem; line-height: 1.5rem;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  color: var(--text-muted);
+}
+
+.assistant-content .code-line {
+  display: block;
+}
+
+.assistant-content pre {
+  background: transparent; margin: 0; padding: 0;
+}
+
+.assistant-content code:not(pre code) {
+  padding: 0.125rem 0.5rem; border-radius: 0.375rem; font-size: 0.875rem; font-family: monospace;
+  background: linear-gradient(135deg, #f5e6dc 0%, #f0dcc8 100%);
+  color: #9a6700;
+}
+
+html.dark .assistant-content code:not(pre code) {
+  background: linear-gradient(135deg, #363a4f 0%, #292c3c 100%);
+  color: #f4ba4c;
+}
+
+/* Syntax highlighting colors - Tokyo Night inspired */
+.assistant-content .token.comment,
+.assistant-content .token.prolog,
+.assistant-content .token.doctype,
+.assistant-content .token.cdata {
+  color: #6a7285;
+  font-style: italic;
+}
+
+.assistant-content .token.punctuation {
+  color: #9699a3;
+}
+
+.assistant-content .token.property,
+.assistant-content .token.tag,
+.assistant-content .token.constant,
+.assistant-content .token.symbol,
+.assistant-content .token.deleted {
+  color: #f7768e;
+}
+
+.assistant-content .token.boolean,
+.assistant-content .token.number {
+  color: #ff9e64;
+}
+
+.assistant-content .token.selector,
+.assistant-content .token.attr-name,
+.assistant-content .token.string,
+.assistant-content .token.char,
+.assistant-content .token.builtin,
+.assistant-content .token.inserted {
+  color: #9ece6a;
+}
+
+.assistant-content .token.operator,
+.assistant-content .token.entity,
+.assistant-content .token.url {
+  color: #89ddff;
+}
+
+.assistant-content .token.atrule,
+.assistant-content .token.attr-value,
+.assistant-content .token.keyword {
+  color: #bb9af7;
+}
+
+.assistant-content .token.function,
+.assistant-content .token.class-name {
+  color: #7aa2f7;
+}
+
+.assistant-content .token.regex,
+.assistant-content .token.important,
+.assistant-content .token.variable {
+  color: #e0af68;
+}
+
+.assistant-content .token.em,
+.assistant-content .token.italic {
+  font-style: italic;
+}
+
+.assistant-content .token.strong,
+.assistant-content .token.bold {
+  font-weight: 700;
+}
+
+/* Assistant content base styles */
+.assistant-content {
+  color: var(--ink-800); line-height: 1.625;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.assistant-content p {
+  margin-bottom: 1rem;
+}
+
+.assistant-content h1 {
+  font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; margin-top: 1.25rem; color: var(--ink-900);
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.assistant-content h2 {
+  font-size: 1.125rem; font-weight: 700; margin-bottom: 0.75rem; margin-top: 1rem; color: var(--ink-900);
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.assistant-content h3 {
+  font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; margin-top: 0.75rem; color: var(--ink-900);
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.assistant-content ul,
+.assistant-content ol {
+  margin-bottom: 1rem; padding-left: 1.5rem;
+}
+
+.assistant-content ul {
+  list-style-type: disc;
+}
+
+.assistant-content ol {
+  list-style-type: decimal;
+}
+
+.assistant-content li {
+  line-height: 1.625;
+}
+
+.assistant-content li::marker {
+  color: var(--saffron-500);
+}
+
+.assistant-content blockquote {
+  margin-top: 1rem; margin-bottom: 1rem; padding: 0.75rem 0.75rem 0.75rem 1rem; border-left: 4px solid var(--saffron-400); background-color: rgba(255,247,230,0.5); border-radius: 0 0.5rem 0.5rem 0; color: var(--ink-500);
+  font-style: italic;
+}
+
+.assistant-content strong {
+  font-weight: 600; color: var(--ink-900);
+}
+
+.assistant-content em {
+  font-style: italic;
+}
+
+.assistant-content a {
+  color: var(--saffron-500); text-decoration: underline;
+}
+
+.assistant-content hr {
+  margin-top: 1.5rem; margin-bottom: 1.5rem; border: 0; border-top: 1px solid var(--ink-200);
+}
+
+.assistant-content table {
+  margin-top: 1rem; margin-bottom: 1rem; width: 100%; border-collapse: collapse; font-size: 0.875rem;
+}
+
+.assistant-content th,
+.assistant-content td {
+  border: 1px solid var(--ink-200); padding: 0.5rem 0.75rem; text-align: left;
+}
+
+.assistant-content th {
+  background-color: var(--ink-100); font-weight: 600; color: var(--ink-900);
+}
+
+.assistant-content td {
+  background-color: white;
+}
+
+.blog-content table {
+  margin-top: 1rem; width: 100%; border-collapse: collapse; font-size: 0.875rem;
+}
+
+.blog-content th,
+.blog-content td {
+  border: 1px solid var(--ink-200); padding: 0.5rem 0.75rem; text-align: left;
+}
+
+.blog-content th {
+  background-color: var(--ink-100); font-weight: 600; color: var(--ink-900);
+}
+
+.blog-content td {
+  color: var(--ink-700);
+}
+
+/* Exact copy of styles from zygai_nilmoni_ui.html */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+  height: 100%;
+}
+
+.header {
+  padding: 12px 16px;
+  border-bottom: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg);
+  transition: border-color 0.2s;
+}
+
+.header.scrolled {
+  border-color: var(--border);
+}
+
+.header-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--ink-800);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all 0.15s;
+}
+
+.icon-btn:hover {
+  background: var(--ink-100);
+  color: var(--ink-800);
+  border-color: var(--border);
+}
+
+.icon-btn svg {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px 16px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+@media (max-width: 640px) {
+  .messages {
+    padding: 12px 8px 8px;
+    gap: 12px;
+  }
+
+  .header {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+
+  .header-title {
+    max-width: 100%;
+    font-size: 14px;
+    line-height: 1.25;
+    white-space: normal;
+  }
+
+  .chat-markdown table {
+    font-size: 12px;
+    min-width: 520px;
+  }
+
+  .chat-markdown th,
+  .chat-markdown td {
+    padding: 0.45rem 0.55rem;
+    white-space: nowrap;
+  }
+
+  .chat-markdown {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+.msg-assistant {
+  max-width: 640px;
+}
+
+.msg-user {
+  align-self: flex-end;
+  max-width: 480px;
+}
+
+.bubble-user {
+  background: var(--ink-100);
+  border-radius: 18px 18px 4px 18px;
+  padding: 10px 15px;
+  font-size: 14px;
+  color: var(--ink-800);
+  line-height: 1.55;
+}
+
+.bubble-assistant {
+  font-size: 14px;
+  color: var(--ink-800);
+  line-height: 1.65;
+}
+
+.bubble-assistant p {
+  margin-bottom: 8px;
+}
+
+.bubble-assistant p:last-child {
+  margin-bottom: 0;
+}
+
+.msg-actions {
+  display: flex;
+  gap: 2px;
+  margin-top: 8px;
+  opacity: 0.6;
+  transition: opacity 0.15s;
+}
+
+.msg-actions:hover {
+  opacity: 1;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all 0.15s;
+}
+
+.action-btn:hover {
+  background: var(--ink-100);
+  color: var(--ink-800);
+}
+
+.action-btn svg {
+  width: 13px;
+  height: 13px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+}
+
+.thinking-indicator {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 8px 0;
+  opacity: 0.7;
+}
+
+.thinking-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ink-500);
+  animation: thinkingPulse 1s ease-in-out infinite;
+}
+
+.thinking-dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.thinking-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes thinkingPulse {
+  0%, 60%, 100% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  30% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+}
+
+/* Original typing indicator kept for backwards compatibility */
+.typing {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 0;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--saffron-400);
+  animation: bounce 1.2s ease-in-out infinite;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  0%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-5px);
+  }
+}
+
+.input-wrap {
+  padding: 0 16px 14px;
+  background: linear-gradient(180deg, rgba(250, 250, 248, 0) 0%, var(--bg) 22%);
+}
+
+.input-box {
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: 18px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(42, 36, 34, 0.06);
+  transition: border-color 0.2s;
+}
+
+html.dark .input-box {
+  background: var(--card-bg);
+  border-color: var(--border);
+}
+
+html.dark #message-input {
+  background: transparent;
+  color: #ffffff !important;
+}
+
+html.dark .input-row {
+  background: transparent;
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.input-left {
+  display: flex;
+  gap: 4px;
+}
+
+.send-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  background: var(--saffron-400);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.send-btn:hover {
+  background: var(--saffron-500);
+  transform: scale(1.04);
+}
+
+.send-btn svg {
+  width: 15px;
+  height: 15px;
+  stroke: white;
+  fill: none;
+  stroke-width: 2.2;
+}
+
+.tool-pill {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 12px;
+  cursor: pointer;
+  font-family: 'Work Sans', sans-serif;
+  transition: all 0.15s;
+}
+
+.tool-pill:hover {
+  background: var(--saffron-50);
+  border-color: var(--saffron-300);
+  color: var(--ink-800);
+}
+
+.tool-pill svg {
+  width: 12px;
+  height: 12px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+.welcome {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+  padding-bottom: 120px;
+}
+
+.welcome-icon {
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, var(--saffron-300), var(--saffron-500));
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcome-icon svg {
+  width: 26px;
+  height: 26px;
+  fill: white;
+}
+
+.welcome h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--ink-900);
+}
+
+.welcome p {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  max-width: 440px;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.card {
+  background: white;
+  border: 1.5px dashed var(--ink-200);
+  border-radius: 12px;
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+.card:hover {
+  border-color: var(--saffron-300);
+  background: var(--saffron-50);
+}
+
+.card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-700);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.card-title svg {
+  width: 13px;
+  height: 13px;
+  stroke: var(--saffron-400);
+  fill: none;
+  stroke-width: 2;
+}
+
+.card-sub {
+  font-size: 12px;
+  color: var(--text-faint);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.model-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--moss-500);
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: rgba(77, 127, 99, 0.08);
+}
+
+.model-badge svg {
+  width: 11px;
+  height: 11px;
+  fill: var(--moss-500);
+}
+
+/* Pridėkite prie savo globalių stilių */
+.bubble-assistant iframe {
+  border-radius: 0 0 8px 8px;
+}
+
+.msg-assistant details summary {
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.msg-assistant details summary:hover {
+  background-color: #f3f4f6;
+}
+
+.msg-assistant details[open] summary {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Gemma 4 style thinking section */
+.thinking-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.thinking-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #374151;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.thinking-avatar span {
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.thinking-model-name {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--ink-900);
+}
+
+.thinking-time {
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+.thinking-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #9ca3af;
+  font-size: 13px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px 0;
+  transition: color 0.15s;
+}
+
+.thinking-toggle:hover {
+  color: #d1d5db;
+}
+
+.thinking-content {
+  margin-left: 44px;
+  border-left: 2px solid #4b5563;
+  padding-left: 16px;
+  color: #d1d5db;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 640px) {
+  /* Remove bubble shadows for cleaner look */
+  .message-enter {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+  
+  /* Make AI messages look more like a document */
+  [data-role="assistant"] .message-enter {
+    background: transparent !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  
+  /* Smaller text for mobile */
+  .chat-markdown {
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+  }
+  
+  /* Remove extra spacing on mobile */
+  .message-enter > div {
+    margin-bottom: 0 !important;
+  }
+  
+  /* Full width on mobile */
+  .message-enter {
+    max-width: 100% !important;
+  }
+  
+  /* Smaller user message bubbles */
+  [data-role="user"] .message-enter {
+    max-width: 90% !important;
+    padding: 10px 14px !important;
+  }
+  
+  /* Tighter spacing */
+  .message-enter {
+    gap: 8px !important;
+  }
+  
+  /* Make code blocks responsive */
+  pre {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    font-size: 13px !important;
+  }
+  
+  /* Touch-friendly buttons */
+  button {
+    min-height: 36px;
+    min-width: 36px;
+  }
+  
+  /* Fix overflow on mobile */
+  body, html, #root {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+  }
+  
+  /* Prevent horizontal scroll - only block-level elements, not inline */
+  img, video, iframe, table {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Chat container fix */
+  .chat-messages {
+    overflow-x: hidden !important;
+  }
+}
