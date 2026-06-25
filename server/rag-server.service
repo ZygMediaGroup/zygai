@@ -1,0 +1,15 @@
+[Unit]
+Description=ZygAI RAG Standalone Server
+After=network.target
+
+[Service]
+Type=simple
+User=zygiuos
+WorkingDirectory=/home/zygiuos/rag-server
+ExecStart=/home/zygiuos/.nvm/versions/node/v24.15.0/bin/node server.js
+Restart=on-failure
+RestartSec=5
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
